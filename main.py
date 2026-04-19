@@ -140,8 +140,26 @@ def today_view():
         for note in notes[-3:]:
             print(f"  {note['id']}: {note['content']}")
 
+# Help
+def show_help():
+    print("""
+Life Manager Commands:
 
+Notes:
+  add-note "text"       → Add a new note
+  list-notes            → List all notes
+  delete-note <id>      → Delete a note
 
+Tasks:
+  add-task "text"       → Add a new task
+  list-tasks            → List all tasks
+  done-task <id>        → Mark task as done
+  delete-task <id>      → Delete a task
+
+General:
+  today                 → Show today's dashboard
+  help                  → Show this help message
+""")
 
 
 # CLI handling
@@ -154,7 +172,6 @@ command = sys.argv[1]
 if command == "add-note":
     content = " ".join(sys.argv[2:])
     add_note(content)
-
 
 elif command == "delete-note":
     note_id = int(sys.argv[2])
@@ -182,6 +199,10 @@ elif command == "add-task":
 
 elif command == "list-tasks":
     list_tasks()
+
+
+elif command == "help":
+    show_help()
 
 else:
     print("Unknown command")
