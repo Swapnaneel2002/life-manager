@@ -38,6 +38,19 @@ def list_notes():
 
 
 
+def delete_note(note_id):
+    notes = load_notes()
+    new_notes = [n for n in notes if n["id"] != note_id]
+
+    if len(new_notes) == len(notes):
+        print("Note not found.")
+        return
+
+    save_notes(new_notes)
+    print("Note deleted.")
+
+
+
 TASKS_FILE = "tasks.json"
 
 
@@ -90,6 +103,20 @@ def list_tasks():
         print(f"{task['id']}: [{status}] {task['content']}")
 
 
+def delete_task(task_id):
+    tasks = load_tasks()
+    new_tasks = [t for t in tasks if t["id"] != task_id]
+
+    if len(new_tasks) == len(tasks):
+        print("Task not found.")
+        return
+
+    save_tasks(new_tasks)
+    print("Task deleted.")
+
+
+
+
 
 def today_view():
     print("=== TODAY ===\n")
@@ -127,6 +154,15 @@ command = sys.argv[1]
 if command == "add-note":
     content = " ".join(sys.argv[2:])
     add_note(content)
+
+
+elif command == "delete-note":
+    note_id = int(sys.argv[2])
+    delete_note(note_id)
+
+elif command == "delete-task":
+    task_id = int(sys.argv[2])
+    delete_task(task_id)
 
 
 elif command == "today":
