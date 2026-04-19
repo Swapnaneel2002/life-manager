@@ -26,6 +26,16 @@ def add_note(content):
     save_notes(notes)
     print("Note added.")
 
+def list_notes():
+    notes = load_notes()
+
+    if not notes:
+        print("No notes found.")
+        return
+
+    for note in notes:
+        print(f"{note['id']}: {note['content']}")
+
 # CLI handling
 if len(sys.argv) < 2:
     print("Usage: python main.py add-note \"your note\"")
@@ -37,5 +47,9 @@ if command == "add-note":
     content = " ".join(sys.argv[2:])
     add_note(content)
 
+elif command == "list-notes":
+    list_notes()
+
 else:
     print("Unknown command")
+
