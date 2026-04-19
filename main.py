@@ -91,6 +91,32 @@ def list_tasks():
 
 
 
+def today_view():
+    print("=== TODAY ===\n")
+
+    tasks = load_tasks()
+    pending_tasks = [t for t in tasks if not t["done"]]
+
+    print("Tasks:")
+    if not pending_tasks:
+        print("  No pending tasks.")
+    else:
+        for task in pending_tasks:
+            print(f"  {task['id']}: {task['content']}")
+
+    print("\nRecent Notes:")
+    notes = load_notes()
+
+    if not notes:
+        print("  No notes found.")
+    else:
+        for note in notes[-3:]:
+            print(f"  {note['id']}: {note['content']}")
+
+
+
+
+
 # CLI handling
 if len(sys.argv) < 2:
     print("Usage: python main.py add-note \"your note\"")
@@ -101,6 +127,10 @@ command = sys.argv[1]
 if command == "add-note":
     content = " ".join(sys.argv[2:])
     add_note(content)
+
+
+elif command == "today":
+    today_view()
 
 
 elif command == "done-task":
