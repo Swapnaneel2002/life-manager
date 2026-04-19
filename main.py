@@ -1,19 +1,9 @@
 import sys
 import json
 from datetime import datetime
+from storage import load_notes, save_notes, load_tasks, save_tasks
 
-NOTES_FILE = "notes.json"
 
-def load_notes():
-    try:
-        with open(NOTES_FILE, "r") as f:
-            return json.load(f)
-    except:
-        return []
-
-def save_notes(notes):
-    with open(NOTES_FILE, "w") as f:
-        json.dump(notes, f, indent=2)
 
 def add_note(content):
     notes = load_notes()
@@ -51,9 +41,6 @@ def delete_note(note_id):
 
 
 
-TASKS_FILE = "tasks.json"
-
-
 def done_task(task_id):
     tasks = load_tasks()
 
@@ -68,16 +55,6 @@ def done_task(task_id):
 
 
 
-def load_tasks():
-    try:
-        with open(TASKS_FILE, "r") as f:
-            return json.load(f)
-    except:
-        return []
-
-def save_tasks(tasks):
-    with open(TASKS_FILE, "w") as f:
-        json.dump(tasks, f, indent=2)
 
 def add_task(content):
     tasks = load_tasks()
