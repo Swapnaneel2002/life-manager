@@ -40,6 +40,21 @@ def list_notes():
 
 TASKS_FILE = "tasks.json"
 
+
+def done_task(task_id):
+    tasks = load_tasks()
+
+    for task in tasks:
+        if task["id"] == task_id:
+            task["done"] = True
+            save_tasks(tasks)
+            print("Task marked as done.")
+            return
+
+    print("Task not found.")
+
+
+
 def load_tasks():
     try:
         with open(TASKS_FILE, "r") as f:
@@ -86,6 +101,11 @@ command = sys.argv[1]
 if command == "add-note":
     content = " ".join(sys.argv[2:])
     add_note(content)
+
+
+elif command == "done-task":
+    task_id = int(sys.argv[2])
+    done_task(task_id)
 
 elif command == "list-notes":
     list_notes()
